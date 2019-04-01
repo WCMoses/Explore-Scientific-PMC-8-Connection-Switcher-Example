@@ -1,9 +1,11 @@
 # Explore-Scientific-PMC-8-Connection-Switcher-Example
 ES PMC-8 Connection Switcher Example
-##Purpose
+
+__Purpose__
+
 The purpose of the EsMount class is to provide a single class a developer can use for performing almost all common operations on or with PMC-8 mounts via direct PMC-8 commands. The EsMount class does not use ASCOM
 
-_Capabilities_
+__Capabilities__
 
 The EsMount class is capable of:
 1.	Determining the connection method (TCP/UDP/Serial) of the mount.
@@ -13,7 +15,7 @@ The EsMount class is capable of:
 5.	Detecting if the computer is connected to a WiFi network.
 6.	Detecting if the computer is connected to a PMC-8 access point.
 
-_Creating an Instance_
+__Creating an Instance__
 
 There are two overloads for creating an EsMount instance:
 	public EsMount(MountModel model, string commPort)
@@ -32,7 +34,7 @@ Alternatively, you can use the static GetConenctedMount method to return an inst
         }
 Notice the parsing of the MountModel enum and the use of Int32 for the port numbers.
 
-Events
+__Events__
 The EsMount class raises a number of events related to its activities.  The delegate and event are defined as:
 	       public delegate void EsNotice(string msg);
         	public event EsNotice EsNoticeEvent;
@@ -43,7 +45,7 @@ Where Dump has the same signature as the EsNotice delegate.
 Future versions will allow for discrimination of which events to receive.
 
 
-_Working with the Wireless Network_
+__Working with the Wireless Network__
 
 You will frequently want to check to make sure that the user is connected to a network, and a PMC-8 network in particular, before performing operations.  You can check to see if the computer is connected to a wireless network using:
 
@@ -62,7 +64,7 @@ This property is just a wrapper around the static GetConnectedSsid method:
 		public static string GetConnectedSsid()
 
 
-_Sending Commands to the Mount_
+__Sending Commands to the Mount__
 
 You can send commands directly to the mount using one of four methods:
 	public void SendRawCommand(string cmd)
@@ -73,10 +75,12 @@ You can send commands directly to the mount using one of four methods:
 The first function, SendRawCommand, will attempt to send the message to the mount using it’s current connection method.  If you know how the mount is connected, you can use one of the XXXSendMessage methods.
 
 
-_Switching Mount Connection Methods_
+__Switching Mount Connection Methods__
 
 The EsMount class can issue commands to switch the mount between serial, tcp, and udp. Explore: 
+
 		public bool SwitchToSerial(string port)
 		public bool SwitchToTCP(string ipAddr, string port)
 		public bool SwitchToUDP(string ipAddr, string port)
+		
 In each case, the EsMount class will attempt to determine the mounts current configuration and then issue the commands required to switch it to the desired connection state.
